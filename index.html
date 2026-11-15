@@ -344,61 +344,183 @@ TAURIVON ♉ © 2026. Створив Дерій Єгор.
 </form>
 </div>
 </div>
-<!-- Secure Local Script -->
+<!-- Cloud Database Script (JSONBin) -->
 <script>
+// === НАЛАШТУВАННЯ БАЗИ ДАНИХ ===
+const BIN_ID = "6af98594ffd5d16053c2d5b4"; 
+const API_KEY = "$2a$10$T827hQCNF9Fn3abN4rKbFurGjlrK5fgna4dIfNmm0FOJ2tVfoKsge"; 
+const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+// === ДАНІ АДМІНІСТРАТОРА ===
 const ADMIN_EMAIL = "deriiegor2015@icloud.com";
-// Зашифрований хЕш пароля (SHA-256) замість відкритого тексту для захисту
-const ADMIN_HASH = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; // admin (можеш змінити згодом)
+// Пароль за замовчуванням: admin
+const ADMIN_HASH = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+
+let currentPosts = [];
+
 async function sha256(message) {
-const msgBuffer = new TextEncoder().encode(message);
-const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-const hashArray = Array.from(new Uint8Array(hashBuffer));
-return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
+
 function openPostModal() {
-document.getElementById('postModal').classList.remove('hidden');
-document.getElementById('postModal').classList.add('flex');
+    document.getElementById('postModal').classList.remove('hidden');
+    document.getElementById('postModal').classList.add('flex');
 }
+
 function closePostModal() {
-document.getElementById('postModal').classList.add('hidden');
-document.getElementById('postModal').classList.remove('flex');
+    document.getElementById('postModal').classList.add('hidden');
+    document.getElementById('postModal').classList.remove('flex');
 }
-function loadPosts() {
-const container = document.getElementById('posts-container');
-const savedPosts = JSON.parse(localStorage.getItem('taurivon_posts') || '[]');
-let html = `<div class="glass-card p-6 rounded-3xl border border-slate-800 flex flex-col justify-between"> <div> <div class="flex items-center justify-between mb-4"> <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">Офіційний анонс</span> <span class="text-xs text-slate-500">Сьогодні</span> </div> <h4 class="text-xl font-bold mb-3">Ласкаво просимо на TAURIVON!</h4> <p class="text-slate-400 text-sm font-light leading-relaxed mb-6"> Сайт успішно створено та налаштовано. Починаємо наш шлях до великої технологічної екосистеми. Слідкуйте за оновленнями у цьому блозі! </p> </div> <div class="flex items-center gap-3 pt-4 border-t border-slate-800/80 text-xs text-slate-400"> <div class="w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center">Є</div> <span>Автор: Дерій Єгор (deriiegor2015@icloud.com)</span> </div> </div>`;
-savedPosts.forEach(post => {
-html += `<div class="glass-card p-6 rounded-3xl border border-slate-800 flex flex-col justify-between"> <div> <div class="flex items-center justify-between mb-4"> <span class="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-semibold">Новина</span> <span class="text-xs text-slate-500">${post.date}</span> </div> <h4 class="text-xl font-bold mb-3">${escapeHtml(post.title)}</h4> <p class="text-slate-400 text-sm font-light leading-relaxed mb-6 whitespace-pre-wrap">${escapeHtml(post.content)}</p> </div> <div class="flex items-center gap-3 pt-4 border-t border-slate-800/80 text-xs text-slate-400"> <div class="w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center">Є</div> <span>Автор: Дерій Єгор (${post.email})</span> </div> </div>`;
-});
-container.innerHTML = html;
+
+// Завантаження постів із хмари для всіх відвідувачів
+async function loadPosts() {
+    const container = document.getElementById('posts-container');
+    container.innerHTML = '<div class="col-span-full text-center text-slate-400 py-8">Завантаження новин...</div>';
+
+    try {
+        const response = await fetch(`${BIN_URL}/latest`, {
+            headers: {
+                'X-Master-Key': API_KEY
+            }
+        });
+        const data = await response.json();
+        currentPosts = Array.isArray(data.record) ? data.record : [];
+        renderPosts();
+    } catch (error) {
+        console.error("Помилка завантаження постів:", error);
+        container.innerHTML = '<div class="col-span-full text-center text-red-400 py-8">Не вдалося завантажити пости. Перевірте підключення.</div>';
+    }
 }
+
+// Відображення постів на сторінці
+function renderPosts() {
+    const container = document.getElementById('posts-container');
+    if (currentPosts.length === 0) {
+        container.innerHTML = '<div class="col-span-full text-center text-slate-400 py-8">Поки що немає жодного посту.</div>';
+        return;
+    }
+
+    let html = '';
+    currentPosts.forEach(post => {
+        const badgeText = post.badge || 'Новина';
+        html += `
+        <div class="glass-card p-6 rounded-3xl border border-slate-800 flex flex-col justify-between relative group">
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">${escapeHtml(badgeText)}</span>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-slate-500">${escapeHtml(post.date)}</span>
+                        <!-- Кнопка видалення посту -->
+                        <button onclick="deletePost('${post.id}')" title="Видалити пост (Адмін)" class="text-slate-600 hover:text-red-400 transition-colors">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+                <h4 class="text-xl font-bold mb-3">${escapeHtml(post.title)}</h4>
+                <p class="text-slate-400 text-sm font-light leading-relaxed mb-6 whitespace-pre-wrap">${escapeHtml(post.content)}</p>
+            </div>
+            <div class="flex items-center gap-3 pt-4 border-t border-slate-800/80 text-xs text-slate-400">
+                <div class="w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center">Є</div>
+                <span>Автор: Дерій Єгор (${escapeHtml(post.email)})</span>
+            </div>
+        </div>`;
+    });
+    container.innerHTML = html;
+}
+
+// Збереження оновленого списку в хмару
+async function syncPostsToCloud() {
+    const response = await fetch(BIN_URL, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': API_KEY
+        },
+        body: JSON.stringify(currentPosts)
+    });
+    if (!response.ok) {
+        throw new Error('Помилка збереження в хмару');
+    }
+}
+
+// Створення нового посту
 async function handleNewPost(event) {
-event.preventDefault();
-const email = document.getElementById('adminEmail').value.trim();
-const password = document.getElementById('adminPassword').value.trim();
-const title = document.getElementById('postTitle').value.trim();
-const content = document.getElementById('postContent').value.trim();
-const hashedPassword = await sha256(password);
-if (email !== ADMIN_EMAIL || hashedPassword !== ADMIN_HASH) {
-alert('Помилка: Неправильний email або пароль адміністратора!');
-return;
+    event.preventDefault();
+    const email = document.getElementById('adminEmail').value.trim();
+    const password = document.getElementById('adminPassword').value.trim();
+    const title = document.getElementById('postTitle').value.trim();
+    const content = document.getElementById('postContent').value.trim();
+
+    const hashedPassword = await sha256(password);
+    if (email !== ADMIN_EMAIL || hashedPassword !== ADMIN_HASH) {
+        alert('Помилка: Неправильний email або пароль адміністратора!');
+        return;
+    }
+
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerText;
+    submitBtn.innerText = 'Публікація...';
+    submitBtn.disabled = true;
+
+    const newPost = {
+        id: Date.now().toString(),
+        title,
+        content,
+        email,
+        badge: 'Новина',
+        date: new Date().toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' })
+    };
+
+    try {
+        currentPosts.unshift(newPost);
+        await syncPostsToCloud();
+        document.getElementById('postForm').reset();
+        closePostModal();
+        renderPosts();
+    } catch (error) {
+        alert('Не вдалося опублікувати пост. Перевірте API-ключі.');
+        currentPosts.shift(); // Відкочуємо зміну при помилці
+    } finally {
+        submitBtn.innerText = originalBtnText;
+        submitBtn.disabled = false;
+    }
 }
-const newPost = {
-title,
-content,
-email,
-date: new Date().toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' })
-};
-const savedPosts = JSON.parse(localStorage.getItem('taurivon_posts') || '[]');
-savedPosts.unshift(newPost);
-localStorage.setItem('taurivon_posts', JSON.stringify(savedPosts));
-document.getElementById('postForm').reset();
-closePostModal();
-loadPosts();
+
+// Видалення посту за паролем адміністратора
+async function deletePost(postId) {
+    const password = prompt("Для видалення посту введіть пароль адміністратора:");
+    if (!password) return;
+
+    const hashedPassword = await sha256(password.trim());
+    if (hashedPassword !== ADMIN_HASH) {
+        alert("Неправильний пароль! Видалення скасовано.");
+        return;
+    }
+
+    const backupPosts = [...currentPosts];
+    currentPosts = currentPosts.filter(p => p.id !== postId);
+    renderPosts();
+
+    try {
+        await syncPostsToCloud();
+    } catch (error) {
+        alert("Помилка при видаленні з хмари.");
+        currentPosts = backupPosts;
+        renderPosts();
+    }
 }
+
 function escapeHtml(text) {
-return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    if (!text) return '';
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 }
+
 window.addEventListener('DOMContentLoaded', loadPosts);
 </script>
 </body>
