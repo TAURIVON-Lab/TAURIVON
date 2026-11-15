@@ -59,6 +59,7 @@ TAURIVON
 <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
 <a href="#about" class="hover:text-emerald-400 transition-colors">Про нас</a>
 <a href="#projects" class="hover:text-emerald-400 transition-colors">Проєкти</a>
+<a href="#software" class="hover:text-emerald-400 transition-colors">Софт</a>
 <a href="#posts" class="hover:text-emerald-400 transition-colors">Блог</a>
 <a href="#roadmap" class="hover:text-emerald-400 transition-colors">Дорожня карта</a>
 <a href="#contact" class="hover:text-emerald-400 transition-colors">Контакти</a>
@@ -165,6 +166,41 @@ TAURIVON — це не просто назва, а екосистема інно
 </div>
 </div>
 </section>
+
+<!-- TAURIVON SOFTWARE (New Python Download Section) -->
+<section id="software" class="py-20 px-6 max-w-6xl mx-auto border-t border-slate-900">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+<div>
+<h2 class="text-xs uppercase font-bold text-emerald-400 tracking-widest mb-3">TAURIVON Software</h2>
+<h3 class="text-3xl sm:text-4xl font-bold">Локальний софт та ChatEPT v0.1</h3>
+</div>
+<p class="text-slate-400 text-sm mt-4 md:mt-0 font-light max-w-xs">
+Завантажуй власні Python-розробки та запускай у себе.
+</p>
+</div>
+<div class="glass-card rounded-3xl p-8 md:p-10 border border-slate-800/80 max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-5">
+<div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center text-3xl font-bold shadow-lg shadow-emerald-500/20 shrink-0">
+🐍
+</div>
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-2">
+Python Console App
+</div>
+<h4 class="text-xl font-bold">ChatEPT v0.1 (Deep Thinking)</h4>
+<p class="text-slate-400 text-sm font-light mt-1">
+Консольний ШІ з 100-секундним циклом обчислень, підтримкою української мови та власним характером.
+</p>
+</div>
+</div>
+<div class="shrink-0 w-full sm:w-auto">
+<a href="https://raw.githubusercontent.com/TAURIVON-Lab/TAURIVON/refs/heads/main/chatept_0.1.py" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-emerald-500/20">
+<i class="fa-solid fa-download"></i> Завантажити `.py`
+</a>
+</div>
+</div>
+</section>
+
 <!-- Blog & Posts Section -->
 <section id="posts" class="py-20 px-6 max-w-6xl mx-auto border-t border-slate-900">
 <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
@@ -330,9 +366,9 @@ document.getElementById('postModal').classList.remove('flex');
 function loadPosts() {
 const container = document.getElementById('posts-container');
 const savedPosts = JSON.parse(localStorage.getItem('taurivon_posts') || '[]');
-let html = ⁠<div class="glass-card p-6 rounded-3xl border border-slate-800 flex flex-col justify-between"> <div> <div class="flex items-center justify-between mb-4"> <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">Офіційний анонс</span> <span class="text-xs text-slate-500">Сьогодні</span> </div> <h4 class="text-xl font-bold mb-3">Ласкаво просимо на TAURIVON!</h4> <p class="text-slate-400 text-sm font-light leading-relaxed mb-6"> Сайт успішно створено та налаштовано. Починаємо наш шлях до великої технологічної екосистеми. Слідкуйте за оновленнями у цьому блозі! </p> </div> <div class="flex items-center gap-3 pt-4 border-t border-slate-800/80 text-xs text-slate-400"> <div class="w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center">Є</div> <span>Автор: Дерій Єгор (deriiegor2015@icloud.com)</span> </div> </div>⁠;
+let html = `<div class="glass-card p-6 rounded-3xl border border-slate-800 flex flex-col justify-between"> <div> <div class="flex items-center justify-between mb-4"> <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">Офіційний анонс</span> <span class="text-xs text-slate-500">Сьогодні</span> </div> <h4 class="text-xl font-bold mb-3">Ласкаво просимо на TAURIVON!</h4> <p class="text-slate-400 text-sm font-light leading-relaxed mb-6"> Сайт успішно створено та налаштовано. Починаємо наш шлях до великої технологічної екосистеми. Слідкуйте за оновленнями у цьому блозі! </p> </div> <div class="flex items-center gap-3 pt-4 border-t border-slate-800/80 text-xs text-slate-400"> <div class="w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center">Є</div> <span>Автор: Дерій Єгор (deriiegor2015@icloud.com)</span> </div> </div>`;
 savedPosts.forEach(post => {
-html += ⁠<div class="glass-card p-6 rounded-3xl border border-slate-800 flex flex-col justify-between"> <div> <div class="flex items-center justify-between mb-4"> <span class="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-semibold">Новина</span> <span class="text-xs text-slate-500">${post.date}</span> </div> <h4 class="text-xl font-bold mb-3">${escapeHtml(post.title)}</h4> <p class="text-slate-400 text-sm font-light leading-relaxed mb-6 whitespace-pre-wrap">${escapeHtml(post.content)}</p> </div> <div class="flex items-center gap-3 pt-4 border-t border-slate-800/80 text-xs text-slate-400"> <div class="w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center">Є</div> <span>Автор: Дерій Єгор (${post.email})</span> </div> </div>⁠;
+html += `<div class="glass-card p-6 rounded-3xl border border-slate-800 flex flex-col justify-between"> <div> <div class="flex items-center justify-between mb-4"> <span class="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-semibold">Новина</span> <span class="text-xs text-slate-500">${post.date}</span> </div> <h4 class="text-xl font-bold mb-3">${escapeHtml(post.title)}</h4> <p class="text-slate-400 text-sm font-light leading-relaxed mb-6 whitespace-pre-wrap">${escapeHtml(post.content)}</p> </div> <div class="flex items-center gap-3 pt-4 border-t border-slate-800/80 text-xs text-slate-400"> <div class="w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center">Є</div> <span>Автор: Дерій Єгор (${post.email})</span> </div> </div>`;
 });
 container.innerHTML = html;
 }
@@ -361,7 +397,7 @@ closePostModal();
 loadPosts();
 }
 function escapeHtml(text) {
-return text.replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 window.addEventListener('DOMContentLoaded', loadPosts);
 </script>
