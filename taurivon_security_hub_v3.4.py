@@ -87,7 +87,7 @@ class TaurivonApp(ctk.CTk):
         write_security_log("Додаток TAURIVON Security Hub v3.4 успішно ініціалізовано.")
 
     def load_or_create_secure_config(self):
-        default_pin = "1234"
+        default_pin = "0000"
         try:
             if os.path.exists(CONFIG_FILE):
                 with open(CONFIG_FILE, "r", encoding="utf-8") as f:
