@@ -1,4 +1,3 @@
-
 import ast
 import operator
 import random
@@ -8,7 +7,7 @@ import time
 from datetime import datetime
 from collections import deque
 
-VERSION = "0.2.1"
+VERSION = "0.2.2"
 THINK_SECONDS = 3
 TYPE_DELAY = 0.015
 MAX_HISTORY = 30
@@ -35,7 +34,7 @@ def think():
         bar = "█" * filled + "░" * (25 - filled)
 
         sys.stdout.write(
-            f"\r[ChatEPT] [{bar}] {progress}% | {stage}     "
+            f"\r[ChatEPT] [{bar}] {progress}% | {stage}    "
         )
         sys.stdout.flush()
         time.sleep(THINK_SECONDS / len(stages))
@@ -319,7 +318,7 @@ def chatept_bot():
 
     print("=" * 65)
     print(f"       TAURIVON SOFTWARE - ChatEPT v{VERSION}")
-    print("              DIALOGUE FIX UPDATE")
+    print("                 DIALOGUE FIX UPDATE")
     print("=" * 65)
     print("Локальний діалоговий режим активовано.")
     print("Пам'ять діалогу: активна.")
