@@ -587,6 +587,43 @@
           Завантаження новин із хмари...
         </div>
       </div>
+
+      <!-- Iframe Сторінки TAURIVON -->
+      <div class="mt-12 glass-card p-6 rounded-3xl border border-slate-800">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <div class="text-xs uppercase font-bold text-emerald-400 tracking-widest">
+              Вбудоване вікно
+            </div>
+            <h4 class="text-lg font-bold text-slate-100">
+              Перегляд сторінки TAURIVON
+            </h4>
+          </div>
+          <a
+            href="https://taurivon.cloud-ip.cc/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-emerald-400 text-xs font-semibold transition-all"
+          >
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            Відкрити окремо
+          </a>
+        </div>
+
+        <div class="relative w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-950">
+          <iframe
+            id="taurivonFrame"
+            src="https://taurivon.cloud-ip.cc/"
+            width="100%"
+            height="650"
+            class="w-full block"
+            style="border: 0;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="TAURIVON"
+          ></iframe>
+        </div>
+      </div>
     </section>
 
     <!-- Roadmap Section -->
@@ -702,10 +739,31 @@
         <div class="font-semibold tracking-wider text-slate-400">
           TAURIVON ♉ © 2026. Створив Дерій Єгор.
         </div>
-        <div class="flex items-center gap-6 text-xs text-slate-500">
-          <span>Хостинг: ClouDNS</span>
-          <span>•</span>
-          <span>Статус: Етап 3 (Еволюція ChatEPT)</span>
+        <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
+          <a
+            href="https://x.com/taurivon"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+          >
+            <i class="fa-brands fa-x-twitter"></i> X (@taurivon)
+          </a>
+          <a
+            href="https://github.com/TAURIVON-Lab"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+          >
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+          <a
+            href="mailto:taurivon@ukr.net"
+            class="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+          >
+            <i class="fa-regular fa-envelope"></i> taurivon@ukr.net
+          </a>
+          <span class="text-slate-600">•</span>
+          <span class="text-slate-500">Хостинг: ClouDNS</span>
         </div>
       </div>
     </footer>
