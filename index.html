@@ -114,6 +114,7 @@
                 <a href="#software" class="hover:text-emerald-400 transition-colors">Софт</a>
                 <a href="#posts" class="hover:text-emerald-400 transition-colors">Блог</a>
                 <a href="#roadmap" class="hover:text-emerald-400 transition-colors">Дорожня карта</a>
+                <a href="#faq" class="hover:text-emerald-400 transition-colors">FAQ</a>
                 <a href="#contact" class="hover:text-emerald-400 transition-colors">Контакти</a>
             </nav>
             <div class="flex items-center gap-4">
@@ -560,6 +561,72 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-6 max-w-4xl mx-auto border-t border-slate-900">
+        <div class="text-center mb-12">
+            <h2 class="text-xs uppercase font-bold text-emerald-400 tracking-widest mb-3">
+                Питання та відповіді
+            </h2>
+            <h3 class="text-3xl sm:text-4xl font-bold">Часті запитання (FAQ)</h3>
+        </div>
+        <div class="space-y-4">
+            <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+                <button type="button" onclick="toggleFaq(this)"
+                    class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-900/40 transition-colors">
+                    <span class="font-semibold text-slate-100">Чи безкоштовний софт від TAURIVON?</span>
+                    <i class="fa-solid fa-chevron-down text-emerald-400 text-sm transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    Так, усі представлені розробки (ChatEPT, Security Hub, Calc, Coder, Browser) безкоштовні для завантаження та використання. Більшість проєктів мають відкритий код у нашому GitHub.
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+                <button type="button" onclick="toggleFaq(this)"
+                    class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-900/40 transition-colors">
+                    <span class="font-semibold text-slate-100">Що потрібно для запуску .py файлів?</span>
+                    <i class="fa-solid fa-chevron-down text-emerald-400 text-sm transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    Встановіть Python версії 3.14.5 (або новішу). Для десктопних програм на кшталт Security Hub v4.0 додатково встановіть бібліотеку <code class="px-1.5 py-0.5 rounded bg-slate-900 text-emerald-400 text-xs">customtkinter</code> командою <code class="px-1.5 py-0.5 rounded bg-slate-900 text-emerald-400 text-xs">pip install customtkinter</code>.
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+                <button type="button" onclick="toggleFaq(this)"
+                    class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-900/40 transition-colors">
+                    <span class="font-semibold text-slate-100">Чому Windows попереджає про невідомого видавця у TAURIVON Browser?</span>
+                    <i class="fa-solid fa-chevron-down text-emerald-400 text-sm transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    Проєкт активно розвивається (Етап 3) і ще не має комерційного цифрового підпису. Через це Windows SmartScreen може показувати стандартне попередження для нових виконуваних файлів.
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+                <button type="button" onclick="toggleFaq(this)"
+                    class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-900/40 transition-colors">
+                    <span class="font-semibold text-slate-100">Як працює локальний ШІ ChatEPT?</span>
+                    <i class="fa-solid fa-chevron-down text-emerald-400 text-sm transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    ChatEPT запускається локально у вас на комп'ютері, підтримує українську мову, зберігає контекст розмов і має вбудований математичний калькулятор.
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+                <button type="button" onclick="toggleFaq(this)"
+                    class="w-full px-6 py-5 text-left flex items-center justify-between gap-4 hover:bg-slate-900/40 transition-colors">
+                    <span class="font-semibold text-slate-100">Як запропонувати ідею або приєднатися до команди?</span>
+                    <i class="fa-solid fa-chevron-down text-emerald-400 text-sm transition-transform duration-200"></i>
+                </button>
+                <div class="faq-answer hidden px-6 pb-5 text-sm text-slate-400 font-light leading-relaxed">
+                    Напишіть нам на пошту <span class="text-emerald-400">taurivon@ukr.net</span> або скористайтеся кнопкою копіювання в розділі «Контакти» нижче — ми відкриті до співпраці та нових ідей.
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="py-20 px-6 max-w-6xl mx-auto border-t border-slate-900">
         <div class="glass-card rounded-3xl p-8 md:p-12 border border-slate-800 text-center relative overflow-hidden">
@@ -575,6 +642,16 @@
                     <i class="fa-regular fa-envelope text-emerald-400"></i>
                     taurivon@ukr.net
                 </a>
+                <button type="button" onclick="copyEmail(this)"
+                    class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-medium text-sm transition-all flex items-center gap-2">
+                    <i class="fa-regular fa-copy text-emerald-400"></i>
+                    <span>Скопіювати email</span>
+                </button>
+                <button type="button" onclick="shareSite(this)"
+                    class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span>Поділитися</span>
+                </button>
             </div>
         </div>
     </section>
@@ -832,6 +909,73 @@
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;");
+        }
+
+
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector("i");
+            answer.classList.toggle("hidden");
+            icon.classList.toggle("rotate-180");
+        }
+
+        async function copyTextWithFallback(value) {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(value);
+                return;
+            }
+            const temp = document.createElement("textarea");
+            temp.value = value;
+            temp.style.position = "fixed";
+            temp.style.opacity = "0";
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+        }
+
+        async function copyEmail(btn) {
+            const label = btn.querySelector("span");
+            const icon = btn.querySelector("i");
+            const originalText = label.textContent;
+            try {
+                await copyTextWithFallback("taurivon@ukr.net");
+                label.textContent = "Скопійовано!";
+                icon.className = "fa-solid fa-check text-emerald-400";
+                setTimeout(() => {
+                    label.textContent = originalText;
+                    icon.className = "fa-regular fa-copy text-emerald-400";
+                }, 2000);
+            } catch (err) {
+                alert("Email: taurivon@ukr.net");
+            }
+        }
+
+        async function shareSite(btn) {
+            const shareData = {
+                title: "TAURIVON — Технологічна компанія майбутнього",
+                text: "Екосистема проєктів TAURIVON: локальний ШІ ChatEPT, Security Hub та власне ПЗ.",
+                url: "https://taurivon.cloud-ip.cc/",
+            };
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                    return;
+                } catch (err) {
+                    if (err && err.name === "AbortError") return;
+                }
+            }
+            const label = btn.querySelector("span");
+            const originalText = label.textContent;
+            try {
+                await copyTextWithFallback(shareData.url);
+                label.textContent = "Посилання скопійовано!";
+                setTimeout(() => {
+                    label.textContent = originalText;
+                }, 2000);
+            } catch (err) {
+                alert(shareData.url);
+            }
         }
 
         window.addEventListener("DOMContentLoaded", loadPosts);
