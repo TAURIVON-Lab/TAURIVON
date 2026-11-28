@@ -18,16 +18,13 @@
     <meta property="og:description"
         content="Екосистема проєктів TAURIVON (Дерій Єгор): асистент ChatEPT, браузер Taurivon Browser, Security Hub та власне програмне забезпечення." />
     <meta property="og:url" content="https://taurivon.cloud-ip.cc/" />
-    <!-- <meta property="og:image" content="https://taurivon.cloud-ip.cc/og-image.png" /> -->
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="TAURIVON — Технологічна компанія майбутнього" />
     <meta name="twitter:description"
         content="Екосистема проєктів TAURIVON (Дерій Єгор): асистент ChatEPT, браузер Taurivon Browser, Security Hub та власне програмне забезпечення." />
-    <!-- <meta name="twitter:image" content="https://taurivon.cloud-ip.cc/og-image.png" /> -->
 
-    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5NTJ2B32"></script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -48,19 +45,18 @@
             },
         };
     </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag("js", new Date());
-    </script>
+
     <!-- Google Fonts Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: "Inter", sans-serif;
         }
@@ -76,17 +72,6 @@
             box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.3);
         }
     </style>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RX3R4ZP8Q"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag("js", new Date());
-
-        gtag("config", "G-0RX3R4ZP8Q");
-    </script>
 </head>
 
 <body
@@ -94,6 +79,9 @@
     <!-- Background glowing blobs -->
     <div class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
     <div class="fixed bottom-10 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Custom Notification Toast (заміна alert/prompt) -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-[60] flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
 
     <!-- Navigation Bar -->
     <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
@@ -108,6 +96,8 @@
                     TAURIVON
                 </span>
             </a>
+
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
                 <a href="#about" class="hover:text-emerald-400 transition-colors">Про нас</a>
                 <a href="#projects" class="hover:text-emerald-400 transition-colors">Проєкти</a>
@@ -117,12 +107,31 @@
                 <a href="#faq" class="hover:text-emerald-400 transition-colors">FAQ</a>
                 <a href="#contact" class="hover:text-emerald-400 transition-colors">Контакти</a>
             </nav>
-            <div class="flex items-center gap-4">
+
+            <!-- Action & Burger Button -->
+            <div class="flex items-center gap-3">
                 <a href="#contact"
                     class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-semibold text-sm transition-all shadow-lg shadow-emerald-500/20">
                     <i class="fa-regular fa-paper-plane"></i> Зв'язатися
                 </a>
+                <button type="button" onclick="toggleMobileMenu()" aria-label="Відкрити меню"
+                    class="md:hidden w-10 h-10 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 flex items-center justify-center transition-colors">
+                    <i id="mobileMenuIcon" class="fa-solid fa-bars"></i>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-slate-800 bg-slate-950/95 px-6 py-4">
+            <nav class="flex flex-col gap-3 text-sm font-medium text-slate-300">
+                <a href="#about" onclick="closeMobileMenu()" class="py-1.5 hover:text-emerald-400 transition-colors">Про нас</a>
+                <a href="#projects" onclick="closeMobileMenu()" class="py-1.5 hover:text-emerald-400 transition-colors">Проєкти</a>
+                <a href="#software" onclick="closeMobileMenu()" class="py-1.5 hover:text-emerald-400 transition-colors">Софт</a>
+                <a href="#posts" onclick="closeMobileMenu()" class="py-1.5 hover:text-emerald-400 transition-colors">Блог</a>
+                <a href="#roadmap" onclick="closeMobileMenu()" class="py-1.5 hover:text-emerald-400 transition-colors">Дорожня карта</a>
+                <a href="#faq" onclick="closeMobileMenu()" class="py-1.5 hover:text-emerald-400 transition-colors">FAQ</a>
+                <a href="#contact" onclick="closeMobileMenu()" class="py-1.5 hover:text-emerald-400 transition-colors">Контакти</a>
+            </nav>
         </div>
     </header>
 
@@ -249,7 +258,7 @@
             <div class="glass-card p-8 rounded-3xl border border-slate-800">
                 <div
                     class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-6">
-                    <i class="fa-solid fa-shield-screen"></i>
+                    <i class="fa-solid fa-shield-halved"></i>
                 </div>
                 <h4 class="text-xl font-bold mb-2">Security Hub v4.0</h4>
                 <p class="text-slate-400 text-sm font-light leading-relaxed">
@@ -280,7 +289,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Картка 1: ChatEPT v0.2 -->
+            <!-- Картка 1: ChatEPT v0.3.2 -->
             <div class="glass-card p-8 rounded-3xl border border-slate-800/80 flex flex-col justify-between">
                 <div class="flex items-center gap-5 mb-6">
                     <div
@@ -308,7 +317,7 @@
 
                 <div>
                     <a href="https://raw.githubusercontent.com/TAURIVON/TAURIVON-CORE/refs/heads/main/chatept.v0.3.2.py"
-                        download="chatept_0.3.2.py"
+                        download="chatept_0.3.2.py" target="_blank" rel="noopener noreferrer"
                         class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-emerald-500/20">
                         <i class="fa-solid fa-download"></i>
                         Завантажити ChatEPT v0.3.2
@@ -337,50 +346,48 @@
                 </div>
                 <div>
                     <a href="https://raw.githubusercontent.com/TAURIVON/TAURIVON-CORE/refs/heads/main/taurivon_wset_suite.v4.0.py"
-                        target="_blank"
+                        download="taurivon_wset_suite.v4.0.py" target="_blank" rel="noopener noreferrer"
                         class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-blue-500/20">
                         <i class="fa-solid fa-download"></i> Завантажити `.py`
                     </a>
                 </div>
             </div>
-        </div>
 
-        <!-- Картка 3: Taurivon calc 0.1 -->
-        <div class="glass-card p-8 rounded-3xl border border-slate-800/80 flex flex-col justify-between mt-6">
-            <div class="flex items-center gap-5 mb-6">
-                <div
-                    class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-sky-400 text-slate-950 flex items-center justify-center text-3xl font-bold shadow-lg shadow-cyan-500/20 shrink-0">
-                    🧮
+            <!-- Картка 3: TAURIVON Calc v0.1 -->
+            <div class="glass-card p-8 rounded-3xl border border-slate-800/80 flex flex-col justify-between">
+                <div class="flex items-center gap-5 mb-6">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-sky-400 text-slate-950 flex items-center justify-center text-3xl font-bold shadow-lg shadow-cyan-500/20 shrink-0">
+                        🧮
+                    </div>
+
+                    <div>
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-semibold mb-2">
+                            Python 3.14.5 • Desktop App
+                        </div>
+
+                        <h4 class="text-xl font-bold">TAURIVON Calc v0.1</h4>
+
+                        <p class="text-slate-400 text-sm font-light mt-1">
+                            Універсальний калькулятор для звичайних, десяткових і мішаних
+                            дробів, степенів та відсотків із вбудованою історією.
+                        </p>
+                    </div>
                 </div>
 
                 <div>
-                    <div
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-semibold mb-2">
-                        Python 3.14.5 • Desktop App
-                    </div>
-
-                    <h4 class="text-xl font-bold">TAURIVON Calc v0.1</h4>
-
-                    <p class="text-slate-400 text-sm font-light mt-1">
-                        Універсальний калькулятор для звичайних, десяткових і мішаних
-                        дробів, степенів та відсотків із вбудованою історією.
-                    </p>
+                    <a href="https://raw.githubusercontent.com/TAURIVON/TAURIVON-CORE/refs/heads/main/taurivon_calc_v0.1.py"
+                        download="taurivon_calc_v0.1.py" target="_blank" rel="noopener noreferrer"
+                        class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-download"></i>
+                        Завантажити TAURIVON Calc v0.1
+                    </a>
                 </div>
             </div>
 
-            <div>
-                <a href="https://raw.githubusercontent.com/TAURIVON/TAURIVON-CORE/refs/heads/main/taurivon_calc_v0.1.py"
-                    download="taurivon_calc_v0.1.py"
-                    class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20">
-                    <i class="fa-solid fa-download"></i>
-                    Завантажити TAURIVON Calc v0.1
-                </a>
-            </div>
-        </div>
-
-        <!-- Картка 4: TAURIVON Coder 1.3 -->
-        <div class="glass-card p-8 rounded-3xl border border-slate-800/80 flex flex-col justify-between mt-6">
-            <div>
+            <!-- Картка 4: TAURIVON Coder v1.3 -->
+            <div class="glass-card p-8 rounded-3xl border border-slate-800/80 flex flex-col justify-between">
                 <div class="flex items-center gap-5 mb-6">
                     <div
                         class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-violet-500 to-blue-400 text-white flex items-center justify-center text-3xl font-bold shadow-lg shadow-violet-500/20 shrink-0">
@@ -402,47 +409,49 @@
                         </p>
                     </div>
                 </div>
+
+                <div>
+                    <a href="https://raw.githubusercontent.com/TAURIVON/TAURIVON-CORE/refs/heads/main/taurivon_coder_v1.3.py"
+                        download="taurivon_coder_v1.3.py" target="_blank" rel="noopener noreferrer"
+                        class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-violet-500 hover:bg-violet-400 text-white font-bold text-sm transition-all shadow-lg shadow-violet-500/20">
+                        <i class="fa-solid fa-download"></i>
+                        Завантажити TAURIVON Coder v1.3
+                    </a>
+                </div>
             </div>
 
-            <a href="https://raw.githubusercontent.com/TAURIVON/TAURIVON-CORE/refs/heads/main/taurivon_coder_v1.3.py"
-                download
-                class="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-violet-500 hover:bg-violet-400 text-white font-semibold transition">
-                <i class="fas fa-download"></i>
-                Завантажити TAURIVON Coder v1.3
-            </a>
-        </div>
+            <!-- Картка 5: TAURIVON Browser v0.11.3 -->
+            <div class="glass-card p-8 rounded-3xl border border-slate-800/80 flex flex-col justify-between md:col-span-2">
+                <div class="flex items-center gap-5 mb-6">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 text-white flex items-center justify-center text-3xl font-bold shadow-lg shadow-blue-500/20 shrink-0">
+                        🌐
+                    </div>
 
-        <!-- Картка 5: TAURIVON browser 0.11.3 -->
-        <div class="glass-card p-8 rounded-3xl border border-slate-800/80 flex flex-col justify-between mt-6">
-            <div class="flex items-center gap-5 mb-6">
-                <div
-                    class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 text-white flex items-center justify-center text-3xl font-bold shadow-lg shadow-blue-500/20 shrink-0">
-                    🌐
+                    <div>
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold mb-2">
+                            Windows Desktop App
+                        </div>
+
+                        <h4 class="text-xl font-bold">TAURIVON Browser v0.11.3</h4>
+
+                        <p class="text-slate-400 text-sm font-light mt-1">
+                            Власний браузер від TAURIVON на базі Chromium. Підтримка вкладок,
+                            завантаження файлів, історія перегляду, cookies та TAURIVON
+                            Search.
+                        </p>
+                    </div>
                 </div>
 
                 <div>
-                    <div
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold mb-2">
-                        Windows Desktop App
-                    </div>
-
-                    <h4 class="text-xl font-bold">TAURIVON Browser v0.11.3</h4>
-
-                    <p class="text-slate-400 text-sm font-light mt-1">
-                        Власний браузер від TAURIVON на базі Chromium. Підтримка вкладок,
-                        завантаження файлів, історія перегляду, cookies та TAURIVON
-                        Search.
-                    </p>
+                    <a href="https://github.com/TAURIVON/TAURIVON-CORE/releases/tag/0.11.3" target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm transition-all shadow-lg shadow-blue-500/20">
+                        <i class="fa-solid fa-download"></i>
+                        Завантажити TAURIVON Browser v0.11.3
+                    </a>
                 </div>
-            </div>
-
-            <div>
-                <a href="https://github.com/TAURIVON/TAURIVON-CORE/releases/tag/0.11.3" target="_blank"
-                    rel="noopener noreferrer"
-                    class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-sm transition-all shadow-lg shadow-blue-500/20">
-                    <i class="fa-solid fa-download"></i>
-                    Завантажити TAURIVON Browser v0.11.3
-                </a>
             </div>
         </div>
     </section>
@@ -456,40 +465,16 @@
                 </h2>
                 <h3 class="text-3xl sm:text-4xl font-bold">Оновлення TAURIVON</h3>
             </div>
-            <button onclick="openPostModal()"
+            <button type="button" onclick="openPostModal()"
                 class="mt-4 md:mt-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold text-sm transition-all border border-slate-700">
                 <i class="fa-solid fa-plus"></i> Написати пост (Адмін)
             </button>
         </div>
+
         <!-- Posts List Container -->
         <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="col-span-full text-center text-slate-400 py-8">
                 Завантаження новин із хмари...
-            </div>
-        </div>
-
-        <!-- Iframe Сторінки TAURIVON -->
-        <div class="mt-12 glass-card p-6 rounded-3xl border border-slate-800">
-            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-                <div>
-                    <div class="text-xs uppercase font-bold text-emerald-400 tracking-widest">
-                        Вбудоване вікно
-                    </div>
-                    <h4 class="text-lg font-bold text-slate-100">
-                        Перегляд сторінки TAURIVON
-                    </h4>
-                </div>
-                <a href="https://taurivon.cloud-ip.cc/" target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-emerald-400 text-xs font-semibold transition-all">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    Відкрити окремо
-                </a>
-            </div>
-
-            <div class="relative w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-950">
-                <iframe id="taurivonFrame" src="https://taurivon.cloud-ip.cc/" width="100%" height="650"
-                    class="w-full block" style="border: 0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                    title="TAURIVON"></iframe>
             </div>
         </div>
     </section>
@@ -667,7 +652,7 @@
                     class="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
                     <i class="fa-brands fa-x-twitter"></i> X (@taurivon)
                 </a>
-                <a href="https://github.com/TAURIVON" target="_blank" rel="noopener noreferrer"
+                <a href="https://github.com/TAURIVON-Lab" target="_blank" rel="noopener noreferrer"
                     class="hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5">
                     <i class="fa-brands fa-github"></i> GitHub
                 </a>
@@ -682,17 +667,16 @@
     </footer>
 
     <!-- Admin Post Modal -->
-    <div id="postModal"
+    <div id="postModal" onclick="if (event.target === this) closePostModal()"
         class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="glass-card w-full max-w-lg rounded-3xl p-6 md:p-8 border border-slate-800 relative">
-            <button onclick="closePostModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-200">
+            <button type="button" onclick="closePostModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-200">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
             <h3 class="text-2xl font-bold mb-6">Створити новий пост</h3>
             <form id="postForm" onsubmit="handleNewPost(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs uppercase font-semibold text-slate-400 mb-2">Email
-                        адміністратора</label>
+                    <label class="block text-xs uppercase font-semibold text-slate-400 mb-2">Email адміністратора</label>
                     <input type="email" id="adminEmail" required
                         class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-emerald-500"
                         placeholder="taurivon@ukr.net" />
@@ -723,22 +707,88 @@
         </div>
     </div>
 
-    <!-- Cloud Database Script (JSONBin) -->
+    <!-- Admin Delete Confirmation Modal -->
+    <div id="deleteModal" onclick="if (event.target === this) closeDeleteModal()"
+        class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="glass-card w-full max-w-md rounded-3xl p-6 md:p-8 border border-slate-800 relative">
+            <button type="button" onclick="closeDeleteModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-200">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-xl font-bold mb-2">Видалення посту</h3>
+            <p class="text-slate-400 text-sm mb-5">Введіть пароль адміністратора для підтвердження видалення.</p>
+            <form id="deleteForm" onsubmit="confirmDeletePost(event)" class="space-y-4">
+                <input type="hidden" id="deletePostId" />
+                <div>
+                    <label class="block text-xs uppercase font-semibold text-slate-400 mb-2">Пароль адміністратора</label>
+                    <input type="password" id="deleteAdminPassword" required
+                        class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-red-500"
+                        placeholder="Введи пароль" />
+                </div>
+                <div class="flex gap-3">
+                    <button type="button" onclick="closeDeleteModal()"
+                        class="w-1/2 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 font-semibold text-sm transition-colors">
+                        Скасувати
+                    </button>
+                    <button type="submit"
+                        class="w-1/2 py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-sm transition-colors">
+                        Видалити
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cloud Database & UI Script -->
     <script>
-        // === НАЛАШТУВАННЯ ХМАРНОЇ БАЗИ ДАНИХ (Виправлено BIN_ID) ===
+        // === НАЛАШТУВАННЯ ХМАРНОЇ БАЗИ ДАНИХ ===
         const BIN_ID = "6af98594ffd5d16053c2d5b4";
-        const API_KEY =
-            "$2a$10$gri3SywhsuR84V4Yqd8C5.lty93OBx7faTjhAkINmvGCl4AgfsO/W";
+        const API_KEY = "$2a$10$gri3SywhsuR84V4Yqd8C5.lty93OBx7faTjhAkINmvGCl4AgfsO/W";
         const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
         // === ДАНІ АДМІНІСТРАТОРА ===
         const ADMIN_EMAIL = "taurivon@ukr.net";
         // Пароль за замовчуванням: admin
-        const ADMIN_HASH =
-            "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+        const ADMIN_HASH = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
 
         let currentPosts = [];
 
+        // === СПОВІЩЕННЯ (TOAST) ===
+        function showToast(message, type = "info") {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+            const colors = {
+                success: "border-emerald-500/40 bg-slate-900/95 text-emerald-300",
+                error: "border-red-500/40 bg-slate-900/95 text-red-300",
+                info: "border-slate-700 bg-slate-900/95 text-slate-200"
+            };
+            toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border backdrop-blur-md shadow-xl text-sm font-medium transition-all duration-300 ${colors[type] || colors.info}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add("opacity-0", "translate-y-2");
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // === МОБІЛЬНА НАВІГАЦІЯ ===
+        function toggleMobileMenu() {
+            const menu = document.getElementById("mobileMenu");
+            const icon = document.getElementById("mobileMenuIcon");
+            const isHidden = menu.classList.toggle("hidden");
+            icon.className = isHidden ? "fa-solid fa-bars" : "fa-solid fa-xmark";
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById("mobileMenu");
+            const icon = document.getElementById("mobileMenuIcon");
+            if (!menu.classList.contains("hidden")) {
+                menu.classList.add("hidden");
+                icon.className = "fa-solid fa-bars";
+            }
+        }
+
+        // === КРИПТОГРАФІЯ SHA-256 ===
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
@@ -746,6 +796,7 @@
             return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
         }
 
+        // === МОДАЛЬНІ ВІКНА ===
         function openPostModal() {
             document.getElementById("postModal").classList.remove("hidden");
             document.getElementById("postModal").classList.add("flex");
@@ -756,7 +807,19 @@
             document.getElementById("postModal").classList.remove("flex");
         }
 
-        // Завантаження постів із хмари для всіх відвідувачів
+        function openDeleteModal(postId) {
+            document.getElementById("deletePostId").value = postId;
+            document.getElementById("deleteAdminPassword").value = "";
+            document.getElementById("deleteModal").classList.remove("hidden");
+            document.getElementById("deleteModal").classList.add("flex");
+        }
+
+        function closeDeleteModal() {
+            document.getElementById("deleteModal").classList.add("hidden");
+            document.getElementById("deleteModal").classList.remove("flex");
+        }
+
+        // === ЗАВАНТАЖЕННЯ ПОСТІВ ІЗ ХМАРИ ===
         async function loadPosts() {
             const container = document.getElementById("posts-container");
             container.innerHTML =
@@ -768,17 +831,20 @@
                         "X-Master-Key": API_KEY,
                     },
                 });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
                 const data = await response.json();
                 currentPosts = Array.isArray(data.record) ? data.record : [];
                 renderPosts();
             } catch (error) {
                 console.error("Помилка завантаження постів:", error);
                 container.innerHTML =
-                    '<div class="col-span-full text-center text-red-400 py-8">Не вдалося завантажити пости з хмари. Перевірте ключі.</div>';
+                    '<div class="col-span-full text-center text-red-400 py-8">Не вдалося завантажити пости з хмари. Перевірте ключі або підключення.</div>';
             }
         }
 
-        // Відображення постів на сторінці
+        // === ВІДОБРАЖЕННЯ ПОСТІВ ===
         function renderPosts() {
             const container = document.getElementById("posts-container");
             if (currentPosts.length === 0) {
@@ -790,6 +856,7 @@
             let html = "";
             currentPosts.forEach((post) => {
                 const badgeText = post.badge || "Новина";
+                const safeId = encodeURIComponent(String(post.id ?? ""));
                 html += `
                 <div class="glass-card p-6 rounded-3xl border border-slate-800 flex flex-col justify-between relative group">
                     <div>
@@ -797,8 +864,7 @@
                             <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold">${escapeHtml(badgeText)}</span>
                             <div class="flex items-center gap-3">
                                 <span class="text-xs text-slate-500">${escapeHtml(post.date)}</span>
-                                <!-- Кнопка видалення посту -->
-                                <button onclick="deletePost('${post.id}')" title="Видалити пост (Адмін)" class="text-slate-600 hover:text-red-400 transition-colors">
+                                <button type="button" onclick="openDeleteModal(decodeURIComponent('${safeId}'))" title="Видалити пост (Адмін)" class="text-slate-600 hover:text-red-400 transition-colors">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>
@@ -815,7 +881,7 @@
             container.innerHTML = html;
         }
 
-        // Збереження оновленого списку в хмару
+        // === СИНХРОНІЗАЦІЯ З ХМАРОЮ ===
         async function syncPostsToCloud() {
             const response = await fetch(BIN_URL, {
                 method: "PUT",
@@ -830,7 +896,7 @@
             }
         }
 
-        // Створення нового посту
+        // === СТВОРЕННЯ НОВОГО ПОСТУ ===
         async function handleNewPost(event) {
             event.preventDefault();
             const email = document.getElementById("adminEmail").value.trim();
@@ -840,11 +906,11 @@
 
             const hashedPassword = await sha256(password);
             if (email !== ADMIN_EMAIL || hashedPassword !== ADMIN_HASH) {
-                alert("Помилка: Неправильний email або пароль адміністратора!");
+                showToast("Неправильний email або пароль адміністратора!", "error");
                 return;
             }
 
-            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const submitBtn = event.currentTarget.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
             submitBtn.innerText = "Публікація...";
             submitBtn.disabled = true;
@@ -868,8 +934,9 @@
                 document.getElementById("postForm").reset();
                 closePostModal();
                 renderPosts();
+                showToast("Пост успішно опубліковано!", "success");
             } catch (error) {
-                alert("Не вдалося опублікувати пост у хмару. Перевірте API-ключі.");
+                showToast("Не вдалося опублікувати пост у хмару.", "error");
                 currentPosts.shift();
             } finally {
                 submitBtn.innerText = originalBtnText;
@@ -877,41 +944,45 @@
             }
         }
 
-        // Видалення посту за паролем адміністратора
-        async function deletePost(postId) {
-            const password = prompt(
-                "Для видалення посту введіть пароль адміністратора:",
-            );
-            if (!password) return;
+        // === ПІДТВЕРДЖЕННЯ ВИДАЛЕННЯ ПОСТУ ===
+        async function confirmDeletePost(event) {
+            event.preventDefault();
+            const postId = document.getElementById("deletePostId").value;
+            const password = document.getElementById("deleteAdminPassword").value.trim();
 
-            const hashedPassword = await sha256(password.trim());
+            const hashedPassword = await sha256(password);
             if (hashedPassword !== ADMIN_HASH) {
-                alert("Неправильний пароль! Видалення скасовано.");
+                showToast("Неправильний пароль! Видалення скасовано.", "error");
                 return;
             }
 
             const backupPosts = [...currentPosts];
-            currentPosts = currentPosts.filter((p) => p.id !== postId);
+            currentPosts = currentPosts.filter((p) => String(p.id) !== String(postId));
+            closeDeleteModal();
             renderPosts();
 
             try {
                 await syncPostsToCloud();
+                showToast("Пост видалено.", "success");
             } catch (error) {
-                alert("Помилка при видаленні з хмари.");
+                showToast("Помилка при видаленні з хмари.", "error");
                 currentPosts = backupPosts;
                 renderPosts();
             }
         }
 
+        // === БЕЗПЕЧНЕ ЕКРАНУВАННЯ HTML ===
         function escapeHtml(text) {
             if (!text) return "";
             return String(text)
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
         }
 
-
+        // === FAQ АКОРДЕОН ===
         function toggleFaq(btn) {
             const answer = btn.nextElementSibling;
             const icon = btn.querySelector("i");
@@ -919,6 +990,7 @@
             icon.classList.toggle("rotate-180");
         }
 
+        // === КОПІЮВАННЯ ТЕКСТУ ===
         async function copyTextWithFallback(value) {
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(value);
@@ -926,12 +998,16 @@
             }
             const temp = document.createElement("textarea");
             temp.value = value;
+            temp.setAttribute("readonly", "");
             temp.style.position = "fixed";
             temp.style.opacity = "0";
             document.body.appendChild(temp);
-            temp.select();
-            document.execCommand("copy");
-            document.body.removeChild(temp);
+            try {
+                temp.select();
+                document.execCommand("copy");
+            } finally {
+                document.body.removeChild(temp);
+            }
         }
 
         async function copyEmail(btn) {
@@ -942,12 +1018,13 @@
                 await copyTextWithFallback("taurivon@ukr.net");
                 label.textContent = "Скопійовано!";
                 icon.className = "fa-solid fa-check text-emerald-400";
+                showToast("Email taurivon@ukr.net скопійовано", "success");
                 setTimeout(() => {
                     label.textContent = originalText;
                     icon.className = "fa-regular fa-copy text-emerald-400";
                 }, 2000);
             } catch (err) {
-                alert("Email: taurivon@ukr.net");
+                showToast("Email: taurivon@ukr.net", "info");
             }
         }
 
@@ -970,11 +1047,12 @@
             try {
                 await copyTextWithFallback(shareData.url);
                 label.textContent = "Посилання скопійовано!";
+                showToast("Посилання на сайт скопійовано", "success");
                 setTimeout(() => {
                     label.textContent = originalText;
                 }, 2000);
             } catch (err) {
-                alert(shareData.url);
+                showToast(shareData.url, "info");
             }
         }
 
